@@ -15,8 +15,16 @@
                 <li> Francisco Joaquin Núñez Varas</li>
                 <li> Matias Javier Agüero Railaf</li>
             </ul>
-            <h1>Tema: Gestión de Usuarios - Universidad</h1>
-            <p>Descripcion de la aplicación: Se trata de un sistema de gestion de usuarios donde puede gestionar los usuarios de una universidad </p>
-            <p>Descripcion de las operaciones CRUD:  Se puede visualizar la información de los usuarios (READ), modificarla (UPDATE), eliminarla (DELETE) y añadir nuevos usuarios (CREATE)</p>
+            <h3>Tema: Gestión de Usuarios - Universidad</h3>
+            <h3>Descripcion de la aplicación: Se trata de un sistema de gestion para visualizar y gestionar los usuarios de una universidad </h3>
+            <h3>Descripcion de las operaciones CRUD:</h3>
+            <ul>
+                <li>CREATE: Se puede crear un nuevo usuario, con su RUT, Nombre completo, Correo, Rol y Departamento.</li>
+                <li>UPDATE: Se puede modificar los datos del usuario, como su Nombre completo, Correo, Rol y Departamento </li>
+                <li>READ: Se puede visualizar los datos como el Rut, Nombre completo, Correo, Rol y Departamento</li>
+                <li>DELETE: Se puede eliminar el usuario y sus respectivos datos.</li>
+            </ul>
+            <h2>Mockup de la interfaz:</h2>
+            <img src="media/Mockup.jpg" alt="mockup" width=50% style="border: 2px solid;">
     </body> 
 </html>
