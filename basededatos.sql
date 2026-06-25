@@ -10,7 +10,7 @@ CREATE TABLE departamento (
 );
 -- Tabla usuario
 CREATE TABLE usuario (
-    rut VARCHAR(12) PRIMARY KEY,
+    rut VARCHAR(10) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL UNIQUE,
     id_rol INT NOT NULL,

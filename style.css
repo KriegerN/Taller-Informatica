@@ -1,0 +1,22 @@
+body { font-family: sans-serif; margin: 20px; font-size: 18px; }
+.container { max-width: 1200px; margin: auto; }
+
+header { display: flex; justify-content: space-between; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px; }
+.logo-title { font-size: 24px; font-weight: bold; }
+.logo-img { height: 35px; vertical-align: middle; margin-right: 10px; }
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.header-user {font-weight: bold;}
+.btn-add, .btn-submit { background: rgb(0, 60, 255); cursor:pointer; color: white; padding: 10px 15px; font-size:18px; text-decoration: none; border: none; border-radius: 20px; }
+.btn-cancel { color: red; text-decoration: none; margin-left: 15px; font-size: 18px;}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid black; padding: 15px; text-align: left; }
+th { background: lightgray; }
+
+label { display: block; margin-top: 15px; font-weight: bold; }
+input, select { margin-top: 5px; padding: 5px; width: 300px; display: block; }
+
+.icono-accion { width: 24px; margin-right: 10px; }
+.acciones a { text-decoration: none;}
+.acciones { text-align: center; }

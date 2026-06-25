@@ -1,30 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Taller Informática</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-            <h1>Integrantes:</h1>
-            <ul>
-                <li> Alier Fres Zúñiga</li>
-                <li> Nicolás Andrés Guerrero Ulloa</li>
-                <li> Francisco Joaquin Núñez Varas</li>
-                <li> Matias Javier Agüero Railaf</li>
-            </ul>
-            <h3>Tema: Gestión de Usuarios - Universidad</h3>
-            <h3>Descripcion de la aplicación: Se trata de un sistema de gestion para visualizar y gestionar los usuarios de una universidad </h3>
-            <h3>Descripcion de las operaciones CRUD:</h3>
-            <ul>
-                <li>CREATE: Se puede crear un nuevo usuario, con su RUT, Nombre completo, Correo, Rol y Departamento.</li>
-                <li>UPDATE: Se puede modificar los datos del usuario, como su Nombre completo, Correo, Rol y Departamento </li>
-                <li>READ: Se puede visualizar los datos como el Rut, Nombre completo, Correo, Rol y Departamento</li>
-                <li>DELETE: Se puede eliminar el usuario y sus respectivos datos.</li>
-            </ul>
-            <h2>Mockup de la interfaz:</h2>
-            <img src="media/Mockup.jpg" alt="mockup" width=50% style="border: 2px solid;">
-    </body> 
-</html>
+<?php
+// llamamos al archivo que tiene la conexion a postgres
+require 'conexion.php';
+
+// armamos la consulta 
+// usamos join para traer el texto del rol y el departamento 
+$sql = "SELECT u.rut, u.nombre, u.correo, r.nombre AS rol, d.nombre AS departamento 
+        FROM usuario u
+        JOIN rol r ON u.id_rol = r.id
+        JOIN departamento d ON u.id_departamento = d.id";
+
+// mandamos la consulta a la base de datos
+$stmt = $pdo->query($sql);
+// sacamos todas las filas y las guardamos en este arreglo para usarlas mas abajo
+$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+include 'layout/header.php'; ?>
+
+<div class="panel-header">
+    <h2>Panel de Control</h2>
+    <a href="crear.php" class="btn-add">+ Añadir Nuevo Usuario</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>RUT</th>
+            <th>NOMBRE COMPLETO</th>
+            <th>CORREO</th>
+            <th>ROL</th>
+            <th>DEPARTAMENTO</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($usuarios as $u): ?>
+        <tr>
+            <td><?= $u['rut'] ?></td>
+            <td><?= $u['nombre'] ?></td>
+            <td><?= $u['correo'] ?></td>
+            <td><?= $u['rol'] ?></td>
+            <td><?= $u['departamento'] ?></td>
+            <td class="acciones">
+                
+                <a href="editar.php?rut=<?= urlencode($u['rut']) ?>" title="Editar">
+                    <img  src="media/editar.svg" alt="Editar" class="icono-accion">
+                </a>
+                <a href="eliminar.php?rut=<?= urlencode($u['rut']) ?>" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?');" title="Eliminar">
+                    <img  src="media/eliminar.svg" alt="Eliminar" class="icono-accion">
+                </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php include 'layout/footer.php'; ?>
