@@ -1,3 +1,5 @@
+-- tabla universidad_db
+-- usuario postgres
 -- Tabla rol
 CREATE TABLE rol (
     id SERIAL PRIMARY KEY,
@@ -26,9 +28,9 @@ CREATE TABLE usuario (
 
 CREATE TABLE registro (
     id SERIAL PRIMARY KEY,
-    accion VARCHAR(50) NOT NULL, -- Ej: 'ELIMINAR', 'CREAR', 'MODIFICAR'
-    descripcion TEXT NOT NULL,   -- Ej: 'Se eliminó al usuario RUT 1234567-8'
-    usuario_responsable VARCHAR(100),
+    tipo VARCHAR(50) NOT NULL,
+    detalle TEXT NOT NULL,  
+    usuario VARCHAR(100) DEFAULT 'SISTEMA',
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
