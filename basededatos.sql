@@ -24,6 +24,14 @@ CREATE TABLE usuario (
     ON DELETE CASCADE
 );
 
+CREATE TABLE registro (
+    id SERIAL PRIMARY KEY,
+    accion VARCHAR(50) NOT NULL, -- Ej: 'ELIMINAR', 'CREAR', 'MODIFICAR'
+    descripcion TEXT NOT NULL,   -- Ej: 'Se eliminó al usuario RUT 1234567-8'
+    usuario_responsable VARCHAR(100),
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Roles
 INSERT INTO rol (nombre) VALUES 
 ('Estudiante'), 
