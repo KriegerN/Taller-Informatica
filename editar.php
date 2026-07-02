@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     try {
         $stmt_update->execute([$nombre, $correo, $id_rol, $id_departamento, $rut_actual]);
-        header("Location: index.php");
+        header("Location: editar_lista.php");
         exit;
     } catch (Exception $e) {
         $error = "Error al actualizar: " . $e->getMessage();
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 include 'layout/header.php'; ?>
 
-<div class="panel-header">
+<div class="panel-header-crear-editar">
     <h2>Editar Usuario: <?=$rut_actual?></h2>
 </div>
 
@@ -58,9 +58,11 @@ include 'layout/header.php'; ?>
         <option value="1" <?= $usuario['id_departamento'] == 1 ? 'selected' : '' ?>>Informática</option>
         <option value="2" <?= $usuario['id_departamento'] == 2 ? 'selected' : '' ?>>Derecho</option>
         <option value="3" <?= $usuario['id_departamento'] == 3 ? 'selected' : '' ?>>Obstetricia</option>
-    </select><br>
-
+    </select>
+    <br>
+    <br>
     <button type="submit" class="btn-submit">Actualizar Datos</button>
+
     <a href="index.php" class="btn-cancel">Cancelar</a>
 </form>
 

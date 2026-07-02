@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     try {
         $stmt->execute([$rut, $nombre, $correo, $id_rol, $id_departamento]);
-        header("Location: index.php");
+        header("Location: ver.php");
         exit;
     } catch (Exception $e) {
         $error = "Error al guardar: " . $e->getMessage();
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include 'layout/header.php';
 ?>
 
-<div class="panel-header">
+<div class="panel-header-crear-editar">
     <h2>Añadir Nuevo Usuario</h2>
 </div>
 
@@ -50,8 +50,9 @@ include 'layout/header.php';
         <option value="1">Informática</option>
         <option value="2">Derecho</option>
         <option value="3">Obstetricia</option>
-    </select><br>
-
+    </select>
+    <br>
+    <br>
     <button type="submit" class="btn-submit">Guardar Usuario</button>
     <a href="index.php" class="btn-cancel">Cancelar</a>
 </form>

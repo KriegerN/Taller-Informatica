@@ -8,6 +8,6 @@ if (isset($_GET['rut'])) {
     $stmt->execute([$rut]);
 }
 
-header("Location: index.php");
+header("Location: eliminar_lista.php");
 exit;
 ?>
