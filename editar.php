@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['usuario_rut'])) {
+    header("Location: index.php");
+    exit;
+}
+
 require 'conexion.php';
 
 if (!isset($_GET['rut'])) {

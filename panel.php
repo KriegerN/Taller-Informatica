@@ -1,4 +1,13 @@
 <?php
+// iniciar sesion antes de cualquier otra cosa
+session_start();
+
+// candado: si no existe la sesión de usuario, lo pateamos de vuelta al login
+if (!isset($_SESSION['usuario_rut'])) {
+    header("Location: index.php");
+    exit;
+}
+
 // llamamos al archivo que tiene la conexion a postgres
 require 'conexion.php';
 
@@ -35,18 +44,17 @@ include 'layout/header.php'; ?>
     <tbody>
         <?php foreach ($usuarios as $u): ?>
         <tr>
-            <td><?= $u['rut'] ?></td>
-            <td><?= $u['nombre'] ?></td>
-            <td><?= $u['correo'] ?></td>
-            <td><?= $u['rol'] ?></td>
-            <td><?= $u['departamento'] ?></td>
+            <td><?= htmlspecialchars($u['rut']) ?></td>
+            <td><?= htmlspecialchars($u['nombre']) ?></td>
+            <td><?= htmlspecialchars($u['correo']) ?></td>
+            <td><?= htmlspecialchars($u['rol']) ?></td>
+            <td><?= htmlspecialchars($u['departamento']) ?></td>
             <td class="acciones">
-                
                 <a href="editar.php?rut=<?= urlencode($u['rut']) ?>" title="Editar">
-                    <img  src="media/editar.svg" alt="Editar" class="icono-accion">
+                    <img src="media/editar.svg" alt="Editar" class="icono-accion">
                 </a>
                 <a href="eliminar.php?rut=<?= urlencode($u['rut']) ?>" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?');" title="Eliminar">
-                    <img  src="media/eliminar.svg" alt="Eliminar" class="icono-accion">
+                    <img src="media/eliminar.svg" alt="Eliminar" class="icono-accion">
                 </a>
             </td>
         </tr>

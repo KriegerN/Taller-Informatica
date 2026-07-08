@@ -15,6 +15,7 @@ CREATE TABLE usuario (
     rut VARCHAR(10) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     id_rol INT NOT NULL,
     id_departamento INT NOT NULL,
     
