@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario_rut'])) {
+    header("Location: index.php");
+    exit;
+}
+
 require 'conexion.php';
 
 $sql = "SELECT u.rut, u.nombre, u.correo, r.nombre AS rol, d.nombre AS departamento 

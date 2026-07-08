@@ -5,14 +5,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rut = $_POST['rut'];
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
+    $password_plana = $_POST['password'];
     $id_rol = $_POST['id_rol'];
     $id_departamento = $_POST['id_departamento'];
 
-    $sql = "INSERT INTO usuario (rut, nombre, correo, id_rol, id_departamento) VALUES (?, ?, ?, ?, ?)";
+    // encriptacion de  contraseña antes de guardarse
+    $password_hash = password_hash($password_plana, PASSWORD_DEFAULT);
+
+    // Actualizamos el SQL para incluir el password_hash (ahora son 6 signos de interrogación)
+    $sql = "INSERT INTO usuario (rut, nombre, correo, password_hash, id_rol, id_departamento) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     
     try {
-        $stmt->execute([$rut, $nombre, $correo, $id_rol, $id_departamento]);
+        // Pasamos el $password_hash al execute en el orden correcto
+        $stmt->execute([$rut, $nombre, $correo, $password_hash, $id_rol, $id_departamento]);
         header("Location: ver.php");
         exit;
     } catch (Exception $e) {
@@ -38,6 +44,9 @@ include 'layout/header.php';
 
     <label>Correo:</label>
     <input type="email" name="correo" maxlength=100 required>
+
+    <label>Contraseña:</label>
+    <input type="password" name="password" required>
 
     <label>Rol:</label>
     <select name="id_rol">
