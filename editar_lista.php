@@ -8,8 +8,11 @@ if (!isset($_SESSION['usuario_rut'])) {
 
 require 'conexion.php';
 
-$sql = "SELECT rut, nombre FROM usuario";
-$stmt = $pdo->query($sql);
+$mi_rut = $_SESSION['usuario_rut'];
+
+$sql = "SELECT * FROM usuario WHERE rut != ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$mi_rut]);
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 include 'layout/header.php';

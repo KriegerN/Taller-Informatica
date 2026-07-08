@@ -13,6 +13,19 @@ $sql = "SELECT u.rut, u.nombre, u.correo, r.nombre AS rol, d.nombre AS departame
         JOIN departamento d ON u.id_departamento = d.id";
 $stmt = $pdo->query($sql);
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $tipo_evento = "Consultar registro"; 
+        $detalle_evento = "Tabla usuario, lectura general de lista.";
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip_cliente = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip_cliente = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $ip_cliente = $_SERVER['REMOTE_ADDR'];
+        }
+        $usuario_responsable = $_SESSION['usuario_nombre'];
+        $sql_log = "INSERT INTO registro (tipo, detalle, usuario, IP) VALUES (?, ?, ?, ?)";
+        $stmt_log = $pdo->prepare($sql_log);
+        $stmt_log->execute([$tipo_evento, $detalle_evento, $usuario_responsable, $ip_cliente]);
 
 include 'layout/header.php';
 ?>

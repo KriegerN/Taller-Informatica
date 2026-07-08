@@ -1,64 +1,49 @@
 <?php
-// iniciar sesion antes de cualquier otra cosa
 session_start();
-
-// candado: si no existe la sesión de usuario, lo pateamos de vuelta al login
 if (!isset($_SESSION['usuario_rut'])) {
     header("Location: index.php");
     exit;
 }
 
-// llamamos al archivo que tiene la conexion a postgres
 require 'conexion.php';
 
-// armamos la consulta 
-// usamos join para traer el texto del rol y el departamento 
-$sql = "SELECT u.rut, u.nombre, u.correo, r.nombre AS rol, d.nombre AS departamento 
-        FROM usuario u
-        JOIN rol r ON u.id_rol = r.id
-        JOIN departamento d ON u.id_departamento = d.id";
-
-// mandamos la consulta a la base de datos
+$sql = "SELECT tipo, detalle, usuario, fecha_hora, IP FROM registro ORDER BY fecha_hora DESC";
 $stmt = $pdo->query($sql);
-// sacamos todas las filas y las guardamos en este arreglo para usarlas mas abajo
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include 'layout/header.php'; ?>
+include 'layout/header.php';
+?>
 
-<div class="panel-header">
-    <h2>Panel de Control</h2>
-    <a href="crear.php" class="btn-add">+ Añadir Nuevo Usuario</a>
+<div class="panel-header-crear-editar">
+    <h2>Bitácora de Eventos del Sistema</h2>
 </div>
 
 <table>
     <thead>
         <tr>
-            <th>RUT</th>
-            <th>NOMBRE COMPLETO</th>
-            <th>CORREO</th>
-            <th>ROL</th>
-            <th>DEPARTAMENTO</th>
-            <th>ACCIONES</th>
+            <th>FECHA Y HORA</th>
+            <th>USUARIO</th>
+            <th>TIPO DE EVENTO</th>
+            <th>DETALLE</th>
+            <th>IP CLIENTE</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($usuarios as $u): ?>
+        <?php foreach ($registros as $r): ?>
         <tr>
-            <td><?= htmlspecialchars($u['rut']) ?></td>
-            <td><?= htmlspecialchars($u['nombre']) ?></td>
-            <td><?= htmlspecialchars($u['correo']) ?></td>
-            <td><?= htmlspecialchars($u['rol']) ?></td>
-            <td><?= htmlspecialchars($u['departamento']) ?></td>
-            <td class="acciones">
-                <a href="editar.php?rut=<?= urlencode($u['rut']) ?>" title="Editar">
-                    <img src="media/editar.svg" alt="Editar" class="icono-accion">
-                </a>
-                <a href="eliminar.php?rut=<?= urlencode($u['rut']) ?>" onclick="return confirm('¿Seguro que deseas eliminar a este usuario?');" title="Eliminar">
-                    <img src="media/eliminar.svg" alt="Eliminar" class="icono-accion">
-                </a>
-            </td>
+            <td><?= date('d/m/Y, H:i:s', strtotime($r['fecha_hora'])) ?></td>
+            <td><?= htmlspecialchars($r['usuario']) ?></td>
+            <td><?= htmlspecialchars($r['tipo']) ?></td>
+            <td><?= htmlspecialchars($r['detalle']) ?></td>
+            <td><?= htmlspecialchars($r['ip']) ?></td>
         </tr>
         <?php endforeach; ?>
+        <?php if(empty($registros)): ?>
+        <tr>
+            <td colspan="5" style="text-align: center;">No hay eventos registrados en la bitácora aún.</td>
+        </tr>
+        <?php endif; ?>
     </tbody>
 </table>
+
 <?php include 'layout/footer.php'; ?>

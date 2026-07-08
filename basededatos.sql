@@ -39,7 +39,8 @@ CREATE TABLE registro (
 -- Roles
 INSERT INTO rol (nombre) VALUES 
 ('Estudiante'), 
-('Profesor');
+('Profesor'),
+('Administrador');
 
 -- Departamentos
 INSERT INTO departamento (nombre) VALUES 

@@ -185,3 +185,38 @@ select:focus {
     text-align: center;
     margin-top: 20px;
 }
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-wrapper form {
+    margin: 0;
+    width: 100%;
+    max-width: 350px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-logo {
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #fca5a5;
+}

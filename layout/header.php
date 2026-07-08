@@ -31,7 +31,7 @@
     <?php if(isset($_SESSION['usuario_nombre'])): ?>
         <nav class="nav-menu">
             <div class="container flex-nav">
-                <a href="panel.php">Inicio</a>
+                <a href="panel.php">Bitácora</a>
                 <a href="crear.php">Crear Usuario</a>
                 <a href="ver.php">Ver Usuarios</a>
                 <a href="editar_lista.php">Editar Usuario</a>
