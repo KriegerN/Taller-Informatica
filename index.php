@@ -81,6 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <br><br>
         <button type="submit" class="btn-submit" style="width: 100%;">Ingresar</button>
+
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="registro.php" style="color: #0b5ed7; text-decoration: none; font-weight: bold;">¿No tienes cuenta? Regístrate aquí</a>
+        </div>
+    </form>
+</div>
     </form>
 </div>
 

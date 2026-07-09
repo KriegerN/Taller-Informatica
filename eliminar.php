@@ -15,11 +15,14 @@ if (isset($_GET['rut'])) {
         exit;
     }
 
-    $sql_select = "SELECT nombre, correo, id_rol, id_departamento FROM usuario WHERE rut = ?";
+    $sql_select = "SELECT nombre, correo, id_rol, id_departamento FROM usuario WHERE rut = ? AND id_rol!=3";
     $stmt_select = $pdo->prepare($sql_select);
     $stmt_select->execute([$rut]);
     $usuario_borrado = $stmt_select->fetch(PDO::FETCH_ASSOC);
-
+    if (!$usuario) {
+    header("Location: eliminar_lista.php");
+    exit;
+}
     if ($usuario_borrado) {
         $nombre = $usuario_borrado['nombre'];
         $correo = $usuario_borrado['correo'];

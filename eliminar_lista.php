@@ -10,10 +10,11 @@ require 'conexion.php';
 
 $mi_rut = $_SESSION['usuario_rut'];
 
-$sql = "SELECT * FROM usuario WHERE rut != ?";
+$sql = "SELECT * FROM usuario WHERE rut != ? AND id_rol!=3";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$mi_rut]);
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 include 'layout/header.php';
 ?>
 

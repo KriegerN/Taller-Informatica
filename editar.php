@@ -20,11 +20,14 @@ if ($rut_actual === $_SESSION['usuario_rut']) {
     exit;
 }
 
-$sql_select = "SELECT * FROM usuario WHERE rut = ?";
+$sql_select = "SELECT * FROM usuario WHERE rut = ? AND id_rol!=3";
 $stmt_select = $pdo->prepare($sql_select);
 $stmt_select->execute([$rut_actual]);
 $usuario = $stmt_select->fetch(PDO::FETCH_ASSOC);
-
+if (!$usuario) {
+    header("Location: editar_lista.php");
+    exit;
+}
 $error = ''; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
